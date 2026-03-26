@@ -11,7 +11,7 @@
     <div class="col">
         <form method="get" action="/search">
             @csrf
-            <input name="pesquisa" type="text" class="form-control" placeholder="Pesquisar por título ou autor">
+            <input name="pesquisa" value="{{ old('pesquisa',request()->pesquisa) }}" type="text" class="form-control" placeholder="Pesquisar por título ou autor">
             <button type="submit" class="btn btn-success"><i class="fas fa-search"></i></button>
         </form>
     </div>

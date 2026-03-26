@@ -13,9 +13,12 @@ class IndexController extends Controller
     }
 
     public function search(Request $request){
-        $material = Material::select('titulo','titulo_publicacao','autores','editoras');
-        $material->where('titulo', 'like', "$request->pesquisa%");
-        dd($material->get(), $request->pesquisa);
+        $materials = Material::select('titulo','titulo_publicacao','autores','editoras')
+        ->where('titulo', 'like', "%$request->pesquisa%")
+        ->orWhere('autores','like', "%$request->pesquisa%")
+        ->get();
+        
+        return view('index',['materials' => $materials]);
     }
 
 }
