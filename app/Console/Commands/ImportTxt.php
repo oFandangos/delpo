@@ -6,8 +6,9 @@ use App\Models\Material;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 
-#[Signature('app:import-txt')]
+#[Signature('app:import-txt {path}')]
 #[Description('Command description')]
 class ImportTxt extends Command
 {
@@ -15,10 +16,16 @@ class ImportTxt extends Command
      * Execute the console command.
      */
     public function handle()
-    {
-    $diretorios = glob(storage_path('*.txt'));
-
-        $linhas = collect($diretorios)->map(function($diretorio){
+    {    
+        $path = realpath($this->argument("path"));
+        $diretorios = File::files($path);
+        
+        $linhas = collect($diretorios)->filter(function($diretorio){
+            //somente arquivos txt, caso haja outros arquivos na pasta
+            $diretorio = (pathinfo($diretorio, PATHINFO_EXTENSION) === 'txt');
+            return ($diretorio);
+        })
+        ->map(function($diretorio){
             return file($diretorio);
         })->toArray();
         
