@@ -37,8 +37,13 @@ class ImportTxt extends Command
         foreach($campos as $campo){
             $trim = [];
             foreach($campo as $c){
-                $partes = explode(": ",$c);
-                $trim[$partes[0]] = trim($partes[1]);
+                $partes = explode(": ",$c, 2);
+                $valor = $partes[1] ?? '';
+                
+                if($valor === ''){
+                    $valor = 'N/A';
+                }
+                $trim[$partes[0]] = trim($valor);
             }
             $final[] = $trim;
         }
@@ -47,17 +52,21 @@ class ImportTxt extends Command
             $descricao[] = array_pop($linha);
         }
         foreach($final as $key => $f){
+            if(!$key){
+                print_r($final);
+            }
+            
             $material = new Material;
-            $material->titulo = $f['Título'];
-            $material->titulo_publicacao = $f["Título pub."];
-            $material->autores = $f["Autores"];
-            $material->editoras = $f["Editoras"];
-            $material->genero = $f["Gênero"];
-            $material->suporte = $f["Suporte"];
-            $material->data_publicacao = $f["Data publicação"];
-            $material->comentarios = $f["Comentários" ];
-            $material->localizacao = $f['Localização'];
-            $material->descricao = $descricao[$key] ?? null;
+            $material->titulo = $f['Título'] ?? "N/A";
+            $material->titulo_publicacao = $f["Título publicação"] ?? "N/A";
+            $material->autores = $f["Autores"] ?? "N/A";
+            $material->editoras = $f["Editoras"] ?? "N/A";
+            $material->genero = $f["Gênero"] ?? "N/A";
+            $material->suporte = $f["Suporte"] ?? "N/A";
+            $material->data_publicacao = $f["Data publicação"] ?? "N/A";
+            $material->comentarios = $f["Comentários" ] ?? "N/A";
+            $material->localizacao = $f['Localização'] ?? "N/A";
+            $material->descricao = $descricao[$key] ?? "N/A";
             $material->save();
         }
     }
