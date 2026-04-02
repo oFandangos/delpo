@@ -23,45 +23,18 @@ $admin = [
     ],
 ];
 
-$submenu2 = [
-    [
-        'text' => 'SubItem 1',
-        'url' => 'subitem1',
-    ],
-    [
-        'text' => 'SubItem 2',
-        'url' => 'subitem2',
-        'can' => 'admin',
-    ],
-];
-
 $menu = [
     [
         'text' => '<i class="fas fa-home"></i> Home',
-        'url' => 'home',
+        'url' => '/',
     ],
     [
         # este item de menu será substituido no momento da renderização
         'key' => 'menu_dinamico',
     ],
     [
-        'text' => 'Drop Down',
-        'submenu' => $submenu2,
-        'can' => '',
-    ],
-    [
-        'text' => 'Está logado',
-        'url' => config('app.url') . '/logado', // com caminho absoluto
-        'can' => 'user',
-    ],
-    [
-        'text' => 'Menu gerente',
-        'url' => 'gerente',
-        'can' => 'gerente',
-    ],
-    [
-        'text' => 'Menu admin',
-        'submenu' => $admin,
+        'text' => '<i class="fas fa-plus-square"></i> Cadastrar material',
+        'url' => 'create',
         'can' => 'admin',
     ],
 ];
@@ -108,7 +81,7 @@ return [
     'right_menu' => $right_menu,
 
     # mensagens flash - https://uspdev.github.io/laravel#31-mensagens-flash
-    'mensagensFlash' => false,
+    'mensagensFlash' => true,
 
     # container ou container-fluid
     'container' => 'container-fluid',
