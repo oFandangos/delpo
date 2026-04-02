@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo');
-            $table->string('titulo_publicacao');
-            $table->string('autores');
-            $table->string('editoras');
-            $table->string('genero');
-            $table->string('suporte');
-            $table->string('data_publicacao');
-            $table->string('localizacao');
-            $table->string('comentarios');
-            $table->text('descricao');
+            $table->string('titulo', 500);
+            $table->string('titulo_publicacao', 500);
+            $table->string('autores')->nullable();
+            $table->string('editoras')->nullable();
+            $table->string('genero')->nullable();
+            $table->string('suporte')->nullable();
+            $table->string('data_publicacao')->nullable();
+            $table->string('localizacao')->nullable();
+            $table->longText('comentarios')->nullable();
+            $table->longText('descricao')->nullable();
             $table->timestamps();
         });
     }
