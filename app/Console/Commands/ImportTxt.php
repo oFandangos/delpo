@@ -35,17 +35,24 @@ class ImportTxt extends Command
 
         $final = [];
         foreach($campos as $campo){
-            $trim = [];
+            $campos_formatados = [];
             foreach($campo as $c){
+                if(str_contains($c, ": ")){
+
                 $partes = explode(": ",$c, 2);
                 $valor = $partes[1] ?? '';
                 
                 if($valor === ''){
                     $valor = 'N/A';
                 }
-                $trim[$partes[0]] = trim($valor);
+                $campos_formatados[$partes[0]] = trim($valor);
+                }else{
+                    if($partes[0] !== null){
+                        $campos_formatados[$partes[0]] .= '; ' . $c;
+                    }
+                }
             }
-            $final[] = $trim;
+            $final[] = $campos_formatados;
         }
         
         foreach($linhas as $linha){
